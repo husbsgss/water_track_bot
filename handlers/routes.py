@@ -48,7 +48,8 @@ async def show_water_tracker(message: Message):
 
 @router.callback_query(F.data.in_({'+250', '-250', '+500', '-500'}))
 async def water(callback: CallbackQuery):
-    total, done = balance_water(callback.data)
+    user_id = callback.from_user.id
+    total, done = balance_water(user_id, callback.data)
 
     if done:
         await callback.message.answer(text="на сегодня вода выпита пацанчо")

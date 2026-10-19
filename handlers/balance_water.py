@@ -1,11 +1,10 @@
-water_balance = 0
+water_balances = {}
 
-def balance_water(water: str) -> tuple[int, bool]:
-    global water_balance
-    water_balance += int(water)
-
-    if water_balance >= 2000:
-        water_balance = 0
-        return 0, True   # (баланс, норма выполнена)
-
-    return water_balance, False
+def balance_water(user_id, water):
+    current = water_balances.get(user_id, 0)   # если нет — 0
+    current += int(water)
+    if current >= 2000:
+        water_balances[user_id] = 0
+        return 0, True
+    water_balances[user_id] = current
+    return current, False
